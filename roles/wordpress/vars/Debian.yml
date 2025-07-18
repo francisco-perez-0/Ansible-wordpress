@@ -1,0 +1,17 @@
+php_packages:
+  - "php{{ php_version }}"
+  - "php{{ php_version }}-curl"
+  - "php{{ php_version }}-dom"
+  - "php{{ php_version }}-exif"
+  - "php{{ php_version }}-fileinfo"
+  - "php{{ php_version }}-mysql"
+  - "php{{ php_version }}-igbinary"
+  - "php{{ php_version }}-imagick"
+  - "php{{ php_version }}-intl"
+  - "php{{ php_version }}-mbstring"
+  - "php{{ php_version }}-xml"
+  - "php{{ php_version }}-zip"
+
+apache_packages:
+  - apache2
+  - "libapache2-mod-php{{ php_version }}"
