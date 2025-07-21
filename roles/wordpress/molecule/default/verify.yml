@@ -1,0 +1,34 @@
+- name: Verificación entorno
+  hosts: all
+  become: true
+  gather_facts: true  # para usar ansible_os_family
+
+  tasks:
+
+    - name: Obtener facts de servicios
+      ansible.builtin.service_facts:
+
+    - name: Verificar servicio Apache en Debian
+      ansible.builtin.debug:
+        msg: "Apache está corriendo"
+      when:
+        - ansible_os_family == "Debian"
+        - "'apache2' in services and services['apache2'].state == 'running'"
+
+    - name: Verificar servicio Apache en RedHat
+      ansible.builtin.debug:
+        msg: "Apache está corriendo"
+      when:
+        - ansible_os_family == "RedHat"
+        - "'httpd' in services and services['httpd'].state == 'running'"
+
+    - name: Obtener info del directorio Wordpress
+      ansible.builtin.stat:
+        path: "{{ wordpress_dir }}"
+      register: archivos_wp
+
+    - name: Verificar que el directorio exista
+      ansible.builtin.assert:
+        that:
+          - archivos_wp.stat.exists
+          - archivos_wp.stat.isdir
