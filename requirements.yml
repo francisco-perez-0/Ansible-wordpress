@@ -1,2 +1,2 @@
-  - src: geerlingguy.mysql 
-    version: 5.0.2
+- src: geerlingguy.mysql
+  version: 5.0.2

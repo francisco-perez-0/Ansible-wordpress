@@ -1,11 +1,11 @@
-<VirtualHost *:{{ apache_http_port }}>
-    ServerName {{ apache_server_name }}
-    DocumentRoot {{ wordpress_dir }}
+<VirtualHost *:{{ wordpress_apache_http_port }}>
+    ServerName {{ wordpress_apache_server_name }}
+    DocumentRoot {{ wordpress_apache_dir }}
 
-    ErrorLog {{ apache_log_dir }}/error-{{ apache_server_name }}.log
-    CustomLog {{ apache_log_dir }}/access-{{ apache_server_name }}.log combined
+    ErrorLog {{ wordpress_apache_log_dir }}/error-{{ wordpress_apache_server_name }}.log
+    CustomLog {{ wordpress_apache_log_dir }}/access-{{ wordpress_apache_server_name }}.log combined
 
-    <Directory {{ wordpress_dir }}>
+    <Directory {{ wordpress_apache_dir }}>
         AllowOverride All
         Require all granted
     </Directory>

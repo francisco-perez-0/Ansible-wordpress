@@ -1,12 +1,12 @@
-php_packages:
+wordpress_php_packages:
   - php
   - php-curl
   - php-dom
   - php-exif
   - php-fileinfo
   - php-hash
-  #- php-igbinary
-  #- php-imagick
+  # - php-igbinary
+  # - php-imagick
   - php-intl
   - php-mbstring
   - php-openssl
@@ -15,6 +15,6 @@ php_packages:
   - php-zip
   - php-mysqlnd
 
-apache_packages:
+wordpress_apache_packages:
   - httpd
   - php
