@@ -3,3 +3,4 @@ php_version: "7.4"
 apache_http_port: 80
 apache_server_name: localhost
 
+apache_log_dir: "{{ '/var/log/apache2' if ansible_os_family == 'Debian' else '/var/log/httpd' }}"

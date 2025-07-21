@@ -4,11 +4,19 @@
 - name: Incluir variables segun sistema operativo
   include_vars: "{{ ansible_os_family }}.yml"
 
-- name: Instalar Apache
+- name: Instalar Apache Ubuntu
   ansible.builtin.apt:
     name: apache2
     update_cache: yes
     state: present
+  when: ansible_os_family == "Debian"
+
+- name: Instalar Apache RedHat
+  ansible.builtin.yum:
+    name: httpd 
+    state: present
+  when: ansible_os_family == "RedHat"
+    
 
 - name: Copiar archivo de configuracion
   ansible.builtin.template:
@@ -39,18 +47,20 @@
   ansible.builtin.shell:
     a2dissite 000-default.conf
   notify: Reiniciar Apache
+  when: ansible_os_family == "Debian"
 
 - name: Habilitar configuracion sitio PHP
   ansible.builtin.shell:
     a2ensite 001-wp.conf
   notify: Reiniciar Apache
+  when: ansible_os_family == "Debian"
    
 - name: Crear directorio de Wordpress
   ansible.builtin.file:
     path: "{{ wordpress_dir }}"
     state: directory
-    owner: "www-data"
-    group: "www-data"
+    owner: "{{ (ansible_os_family == 'RedHat') | ternary('apache', 'www-data') }}"
+    group: "{{ (ansible_os_family == 'RedHat') | ternary('apache', 'www-data') }}"
     mode: '0755'
 
 - name: Descargar Wordpress
@@ -64,8 +74,8 @@
   ansible.builtin.file:
     path: "{{ wordpress_dir }}/wordpress"
     state: directory
-    owner: "www-data"
-    group: "www-data"
+    owner: "{{ (ansible_os_family == 'RedHat') | ternary('apache', 'www-data') }}"
+    group: "{{ (ansible_os_family == 'RedHat') | ternary('apache', 'www-data') }}"
     recurse: yes
 
 - name: Otorgar permisos para directorios a 755
