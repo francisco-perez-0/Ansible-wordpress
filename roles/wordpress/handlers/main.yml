@@ -1,4 +1,0 @@
-- name: Reiniciar Apache
-  ansible.builtin.service:
-    name: "{{ wordpress_apache_service_name }}"
-    state: restarted

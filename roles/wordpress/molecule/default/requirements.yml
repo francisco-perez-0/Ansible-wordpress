@@ -1,4 +1,0 @@
-roles:
-  - name: geerlingguy.mysql
-    src: geerlingguy.mysql
-    version: 5.0.2
